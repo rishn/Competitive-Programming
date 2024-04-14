@@ -1,3 +1,12 @@
+/*
+Joe is playing a game where there are N group of balloons. He is given a gun which can shoot one round per minute.
+
+For each round it can hit 1 balloon in K groups each.If the group has zero balloons left, then we say that particular group is destroyed completely, and it would not be counted. 
+The gun is deactivated if the number of groups falls below K.
+
+Find the maximum number of minutes the gun will be activated based on the above factors.
+*/
+
 import java.util.*;
 
 class GunActivation {
