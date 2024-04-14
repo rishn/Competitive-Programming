@@ -1,5 +1,8 @@
+// AVERAGE ASCII AND SMALLEST MISSING ALPHABET
+
 import java.util.Scanner;
 class ASCIIString {
+    // Returning average of ASCII codes of characters in string
     static float averageASCII(String str) {
         // Base case
         if (str.length() == 0)
@@ -11,6 +14,7 @@ class ASCIIString {
         return tot / str.length();
     }
 
+    // Return smallest missing alphabet (in the order a->z) in string
     static char smallestMissing(String str) {
         int[] alpha = new int[26];
         
