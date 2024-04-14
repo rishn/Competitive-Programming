@@ -4,39 +4,95 @@ class Node {
     int val;
     Node next;
 
-    Node() {}
-
-    Node(int val) { this.val = val; }
-
-    Node(int val, Node next) { this.val = val; this.next = next; }
+    Node(int val) { 
+        this.val = val; 
+    }
 }
 
-class Solution {
-    static int getNumber(Node head) {
-        int dec = 1, num = 0;
+public class Add2Nums {
+    static Node add2Nums(Node l1, Node l2) {
+        // Digit sum and carry
+        int sum = 0, carry = 0;
+        
+        // Result linked list
+        Node l3 = new Node(0), curr = l3;
 
-        while (head.next != null) {
-            num += head.val * dec;
+        // Until any one linked list is traversed entirely
+        while (l1 != null && l2 != null) {
+            // Find digit sum of values of nodes and carry, update carry
+            sum = (l1.val + l2.val + carry) % 10;
+            carry = (l1.val + l2.val + carry) / 10;
 
-            head = head.next;
+            // Add new node with digit sum value to result list 
+            curr.next = new Node(sum);
+
+            // Move to next nodes
+            curr = curr.next;
+            l1 = l1.next;
+            l2 = l2.next;
         }
 
-        return num;
+        // Until l1 is traversed entirely
+        while (l1 != null) {
+            // Find digit sum of node value and carry, update carry
+            sum = (l1.val + carry) % 10;
+            carry = (l1.val + carry) / 10;
+
+            // Add new node with digit sum value to result list 
+            curr.next = new Node(sum);
+
+            // Move to next nodes
+            curr = curr.next;
+            l1 = l1.next;
+        }
+
+        // Until l2 is traversed entirely
+        while (l2 != null) {
+            // Find digit sum of node value and carry, update carry
+            sum = (l2.val + carry) % 10;
+            carry = (l2.val + carry) / 10;
+
+            // Add new node with digit sum value to result list 
+            curr.next = new Node(sum);
+
+            // Move to next nodes
+            curr = curr.next;
+            l2 = l2.next;
+        }
+
+        // If carry is present, add new node with carry as value
+        if (carry == 1)
+            curr.next = new Node(1);
+
+        // Return linked list
+        return l3.next;
     }
 
-    public Node addTwoNumbers(Node l1, Node l2) {
-        int len = 0, result = getNumber(l1) + getNumber(l2), temp = result;
+    // Function to print list
+    static void printList(Node head) {
+        while (head != null) {
+            System.out.print(head.val + " ");
+            head = head.next;
+        }   
+    }
 
-        while (temp > 0) {
-            temp /= 10;
-            len++;
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        // Read lists
+        Node l1 = new Node(0), l2 = new Node(0), temp = l1;
+        String[] s1 = sc.nextLine().split(" "), s2 = sc.nextLine().split(" ");
+        for (String val : s1) {
+            temp.next = new Node(Integer.parseInt(val));
+            temp = temp.next;
+        }
+        temp = l2;
+        for (String val : s2) {
+            temp.next = new Node(Integer.parseInt(val));
+            temp = temp.next;
         }
 
-        Node head = new Node(result % (int)Math.pow(10, len)), t = head;
-
-        while (len != 0)
-            t = new Node(result % (int)Math.pow(10, --len), t);
-
-        return head;
+        // Output
+        printList(add2Nums(l1.next, l2.next));
     }
 }
