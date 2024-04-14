@@ -14,7 +14,6 @@ class Tree {
 }
 
 class LCA {
-  static boolean v1, v2;
   
   // Function to build tree from level-order array using queue
   static Tree build(List<Integer> nodes) {
@@ -60,16 +59,12 @@ class LCA {
       return null;
     
     // If n1 is visited
-    if (node.value == n1) {
-      v1 = true;
+    if (node.value == n1)
       return node;
-    }
     
     // If n2 is visited
-    if (node.value == n2) {
-      v2 = true;
+    if (node.value == n2) 
       return node;
-    }
     
     // Search for n1 and n2 in children
     Tree left_node = nodeLoc(node.left, n1, n2), right_node = nodeLoc(node.right, n1, n2);
