@@ -59,13 +59,13 @@ class LCA {
     if (node == null)
       return null;
     
-    // If v1 is visited
+    // If n1 is visited
     if (node.value == n1) {
       v1 = true;
       return node;
     }
     
-    // If v2 is visited
+    // If n2 is visited
     if (node.value == n2) {
       v2 = true;
       return node;
