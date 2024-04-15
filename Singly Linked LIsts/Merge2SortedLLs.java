@@ -74,7 +74,7 @@ class Merge2Sorted {
   }
 }
 
-// PERSONAL ATTEMPT (USING COLLECTIONS)
+// USING COLLECTIONS
 /*
 class Merge2Sorted {
   public static void main(String args[]) {
