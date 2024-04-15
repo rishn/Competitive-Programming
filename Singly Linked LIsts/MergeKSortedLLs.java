@@ -94,7 +94,7 @@ class MergeKSorted {
   }
 }
 
-// PERSONAL ATTEMPT (USING COLLECTIONS)
+// USING COLLECTIONS
 /*
 class MergeKSorted {
   public static void main(String args[]) {
