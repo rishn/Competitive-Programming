@@ -1,50 +1,35 @@
 import java.util.*;
 
 class LIS {
-  static int longestIncreasingSubsequences(int[] nums, int n) {
-    // Base Case
-    if (n == 0)
-      return 0;
+    public int longestIncreasingSubsequence(int[] nums) {
+        // Initialize DP list with first number in array
+        List<Integer> dp = new ArrayList<>();
+        dp.add(nums[0]);
 
-    // Initialize DP (l) array with 1s
-    int[] dp_l = new int[n];
-    Arrays.fill(dp_l, 1);
-
-    // Initialize DP (c) array with 1s
-    int[] dp_c = new int[n];
-    Arrays.fill(dp_c, 1);
-
-    for(int i = 0; i < n; i++)
-      for(int j = 0; j < i; j++) {
-
-        // If current element is smaller
-        if (nums[i] > nums[j])
-          // Compare DP matrix values
-          if (dp_l[j] + 1 > dp_l[i]) {
-            dp_l[i] = dp_l[j] + 1;
-            dp_c[i] = dp_c[j];
-          }
-          else if (dp_l[j] + 1 == dp_l[i])
-            dp_c[i] += dp_c[j];
-      }
-
-    // Store the maximum element from DP (l)
-    int max_length = 0;
-    for(int i : dp_l)
-      max_length = Math.max(i, max_length);
-
-    // LIS counter
-    int count = 0;
-
-    // Traverse DP (l) and DP (c) simultaneously
-    for(int i = 0; i < n; i++)
-      // Update the count
-      if (dp_l[i] == max_length)
-        count += dp_c[i];
-
-    // Return the count of LIS
-    return count;
-  }
+        // Iterate through remaining array elements
+        for (int i = 1; i < nums.length; i++) 
+            // If recently added element is less than current element, add element to list
+            if (dp.getLast() < nums[i]) 
+                dp.add(nums[i]);
+            
+            // Else
+            else {
+                // Find index of smallest value in DP list greater than current element
+                int idx = dp.size();
+                for (int j = 0; j < dp.size(); j++)
+                    if (nums[i] < dp.get(j)) {
+                        idx = j;
+                        break;
+                    }
+                
+                // If index is 0 or current element is not present in DP, update index with current element
+                if (idx == 0 || dp.get(idx - 1) != nums[i])
+                    dp.set(idx, nums[i]);
+            }
+        
+        // Return size of DP list
+        return dp.size();
+    }
 
   public static void main(String[] args) {
 	Scanner sc = new Scanner(System.in);
@@ -56,6 +41,6 @@ class LIS {
       arr[i] = sc.nextInt();
     
     // Function Call
-    System.out.println(longestIncreasingSubsequences(arr, n));
+    System.out.println(longestIncreasingSubsequences(arr));
   }
 }
